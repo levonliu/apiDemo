@@ -13,7 +13,19 @@
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->email,
+        'username' => $faker->name,
+        'password' => 11111,
+    ];
+});
+
+
+$factory->define(\App\Entity\Customer::class, function (Faker\Generator $faker) {
+    $num  = [1,2];
+    return [
+        'customer_name' => $faker->name,
+        'sex' => $num[array_rand($num)],
+        'tel' => $faker->phoneNumber,
+        'address'=> $num[array_rand($num)],
+        'group'=> $num[array_rand($num)],
     ];
 });
