@@ -23,9 +23,9 @@ $factory->define(\App\Entity\Customer::class, function (Faker\Generator $faker) 
     $num  = [1,2];
     return [
         'customer_name' => $faker->name,
-        'sex' => $num[array_rand($num)],
-        'tel' => $faker->phoneNumber,
-        'address'=> $num[array_rand($num)],
-        'group'=> $num[array_rand($num)],
+        'sex'           => $num[ array_rand($num) ],
+        'tel'           => $faker->unique()->phoneNumber,
+        'address'       => $num[ array_rand($num) ],
+        'group'         => $num[ array_rand($num) ],
     ];
 });
