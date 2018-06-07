@@ -80,8 +80,9 @@ $app->singleton(
 
 // $app->register(App\Providers\AppServiceProvider::class);
  $app->register(App\Providers\AuthServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
+// $app->register(App\Providers\EventServiceProvider::class);php artisan jwt:secret
  $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
+ $app->register(Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -95,7 +96,7 @@ $app->singleton(
 */
 
 $apiGroup = [
-    'namespace'  => 'App\Http\Controllers\Api',
+    'namespace'  => 'App\Http\Controllers\api',
     'prefix'     => 'api',
     'middleware' => []
 ];
