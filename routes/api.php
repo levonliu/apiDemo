@@ -13,7 +13,7 @@ $router->get('/', function () {
 
 $router->post('/login', 'AuthController@login');
 
-$router->group(['namespace' => 'App\Http\Controllers\api','middleware' => 'auth:api'], function () use ($router) {
+$router->group(['middleware' => 'auth:api'], function () use ($router) {
     $router->get('/index', 'IndexController@index');
 });
 
