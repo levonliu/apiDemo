@@ -12,7 +12,9 @@ class CustomersTableSeeder extends Seeder
      */
     public function run()
     {
+        // truncate existing records to start from scratch.
         Customer::truncate();
+
         factory(Customer::class,24)->create();
     }
 }
