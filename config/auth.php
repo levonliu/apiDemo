@@ -14,7 +14,8 @@ return [
     */
 
     'defaults' => [
-        'guard' => env('AUTH_GUARD', 'api'),
+        'guard'    => env('AUTH_GUARD', 'api'),
+        'password' => 'users',
     ],
 
     /*
@@ -36,8 +37,8 @@ return [
 
     'guards' => [
         'api' => [
-            'driver' => 'jwt',
-            'provider' => 'users'
+            'driver'   => 'jwt',
+            'provider' => 'users',
         ],
     ],
 
