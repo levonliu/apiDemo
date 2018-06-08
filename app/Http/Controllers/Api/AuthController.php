@@ -8,8 +8,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -34,10 +34,12 @@ class AuthController extends Controller
     {
         $credentials = $request->only('username', 'password');
         if (! $token = $this->guard()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['status' => false,'error' => 'Unauthorized'], 401);
         }
-        return $this->respondWithToken($token);
+
+        return response()->json(['status' => true, 'access_token' => $token,],200);
     }
+
 
     /**
      * Get the authenticated User.
@@ -58,7 +60,7 @@ class AuthController extends Controller
     {
         $this->guard()->logout();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        return response()->json(['status' => true],200);
     }
 
     /**
@@ -68,7 +70,7 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken($this->guard()->refresh());
+        return $this->guard()->refresh();
     }
 
     /**
@@ -82,8 +84,9 @@ class AuthController extends Controller
     {
         return response()->json([
             'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => $this->guard()->factory()->getTTL() * 60
+            'token_type'   => 'bearer',
+            'expires_in'   => $this->guard()->factory()->getTTL() * 60,
         ]);
     }
+
 }
