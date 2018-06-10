@@ -65,6 +65,7 @@ $app->singleton(
 
  $app->routeMiddleware([
      'auth' => App\Http\Middleware\Authenticate::class,
+     'cors' => \Barryvdh\Cors\HandleCors::class
  ]);
 
 /*
@@ -77,12 +78,13 @@ $app->singleton(
 | totally optional, so you are not required to uncomment this line.
 |
 */
-
+ $app->configure('cors');
  $app->register(App\Providers\AppServiceProvider::class);
  $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);php artisan jwt:secret
  $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
  $app->register(Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+ $app->register(Barryvdh\Cors\ServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -98,7 +100,7 @@ $app->singleton(
 $apiGroup = [
     'namespace'  => 'App\Http\Controllers\Api',
     'prefix'     => 'api',
-    'middleware' => []
+    'middleware' => ['cors']
 ];
 
 $app->router->group($apiGroup, function ($router) {
