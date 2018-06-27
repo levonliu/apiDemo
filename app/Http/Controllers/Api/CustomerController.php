@@ -19,6 +19,12 @@ class CustomerController extends AuthController
 
     public function getCustomerList()
     {
-        return response()->json(['status' => true, 'access_token' => $this->token],200);
+        $customerList = \DB::table('customers')->get();
+        $customerList = $customerList->reject(function(&$v){
+            $v->sex_name     = $v->sex == '1' ? '男' : '女';
+            $v->address_name = $v->address == '1' ? '绵竹' : '彭州';
+            $v->group_name   = $v->group == '1' ? 'A' : 'B';
+        });
+        return response()->json([ 'status' => true, 'access_token' => $this->token, 'data' => $customerList ], 200);
     }
 }
