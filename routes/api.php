@@ -16,6 +16,7 @@ $router->post('/login', 'AuthController@login');
 $router->group(['middleware' => 'auth:api'], function () use ($router) {
     $router->get('/index', 'IndexController@index');
     $router->get('/customer', 'CustomerController@getCustomerList');
+    $router->post('/customer', 'CustomerController@editCustomerInfo');
 });
 
 

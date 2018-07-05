@@ -8,6 +8,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Entity\Customer;
+use Illuminate\Http\Request;
 class CustomerController extends AuthController
 {
     private $token;
@@ -26,5 +28,18 @@ class CustomerController extends AuthController
             $v->group_name   = $v->group == '1' ? 'A' : 'B';
         });
         return response()->json([ 'status' => true, 'access_token' => $this->token, 'data' => $customerList ], 200);
+    }
+
+    public function editCustomerInfo(Request $request)
+    {
+        $data = $request->except(['index','group_name','address_name','sex_name']);
+        $id = $data['id'];
+        unset($data['id']);
+        $res = Customer::updateOrCreate(['id'=>$id],$data);
+        if($res !== false){
+            return response()->json([ 'status' => false, 'access_token' => $this->token ], 200);
+        }
+        return response()->json([ 'status' => true, 'access_token' => $this->token ], 200);
+
     }
 }
